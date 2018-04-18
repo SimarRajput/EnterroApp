@@ -14,9 +14,16 @@ class Contact extends Component {
     }
 
     fillInfoDiv(message){
-        this.infoDiv = <div className="alert alert-success col-md-9" role="alert">
-                            {message}
-                        </div>
+        this.infoDiv = <div className="form-group row">
+            <div className="col-md-9">
+                <div className="alert alert-success alert-dismissible fade show" role="alert">
+                    <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    {message}
+                </div>
+            </div>
+        </div>
     }
 
     handleSubmit(event) {
