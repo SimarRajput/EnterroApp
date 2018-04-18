@@ -25,7 +25,7 @@ class Contact extends Component {
             </div>
         </div>
     }
-
+    
     handleSubmit(event) {
         const contactUs = {
             productName: this.productName.value,
