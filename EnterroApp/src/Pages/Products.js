@@ -71,8 +71,6 @@ class Products extends Component {
                         </button>
                         <div className="dropdown-menu">
                             <button className="dropdown-item" value={row.PRODUCT_TYPE_ID} onClick={self.callProductsApi.bind(self, row.PRODUCT_TYPE_ID)} href="#sec">{row.PRODUCT_TYPE}</button>
-                            <button className="dropdown-item" value={row.PRODUCT_TYPE_ID} onClick={self.callProductsApi.bind(self, row.PRODUCT_TYPE_ID)} href="#sec">{row.PRODUCT_TYPE}</button>
-                            <button className="dropdown-item" value={row.PRODUCT_TYPE_ID} onClick={self.callProductsApi.bind(self, row.PRODUCT_TYPE_ID)} href="#sec">{row.PRODUCT_TYPE}</button>
                         </div>
                     </div>
                 });

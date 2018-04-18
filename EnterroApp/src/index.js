@@ -15,6 +15,7 @@ ReactDOM.render(
     <Router>
         <div>
             <Navigation />
+                <div className="componentTop"></div>
                 <Route exact path="/" component={Products} />
                 <Route path="/about" component={About} />
                 <Route path="/contact" component={Contact} />

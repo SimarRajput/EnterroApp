@@ -45,7 +45,7 @@ class Contact extends Component {
     render() {
         const { error, status } = this.state;
         const mainDivStyle = {
-            margin: "50px auto",
+            margin: "100px auto",
             width: "85%"
         }
         if (error != null) {

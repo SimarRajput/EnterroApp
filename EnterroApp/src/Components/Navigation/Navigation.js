@@ -11,22 +11,22 @@ class Navigation extends Component {
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarResponsive">
-                    <ul className="navbar-nav ml-auto">
-                        <li className="nav-item">
-                            <Link to="/" className="nav-link active" href="#">Home
+                        <ul className="navbar-nav ml-auto">
+                            <li className="nav-item">
+                                <Link to="/" className="nav-link active" href="#">Home
                                 <span className="sr-only">(current)</span>
-                            </Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link to="about" className="nav-link" href="#">About</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link to="services" className="nav-link" href="#">Services</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link to="contact" className="nav-link" href="#">Contact</Link>
-                        </li>
-                    </ul>
+                                </Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link to="about" className="nav-link" href="#">About</Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link to="services" className="nav-link" href="#">Services</Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link to="contact" className="nav-link" href="#">Contact</Link>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </nav>

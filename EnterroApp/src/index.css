@@ -106,3 +106,7 @@ a{
 .dropdown-item{
   padding:8px 8px 8px 10px;
 }
+
+.componentTop{
+  margin-top: 60px;
+}
