@@ -17,17 +17,14 @@ var dataBase = pgp({
 
 // Add Query Functions
 module.exports = {
-  getAllProducts: getAllProducts,
-  getProductById: getProductById,
-  getAllProductItems: getAllProductItems,
-  getProductItemByPid: getProductItemByPid,
-  getProductItemByType: getProductItemByType,
-  getProductItemByCameraTypeId: getProductItemByCameraTypeId,
+  getProducts: getProducts,
+  getProductItems: getProductItems,
   createProductItem: createProductItem,
   updateProductItem: updateProductItem,
   removeProductItem: removeProductItem,
-  getAllProductTypes: getAllProductTypes,
-  insertContactUs: insertContactUs
+  getProductTypes: getProductTypes,
+  createContactUs: createContactUs,
+  getCameraTypes: getCameraTypes,
 };
 
 function quoteStr(string) {
@@ -35,9 +32,15 @@ function quoteStr(string) {
 }
 
 //#region PRODUCT Table Queries
+function getProducts(req, res, next) {
+  var query = 'SELECT * FROM "PRODUCT"';
+  var productId = parseInt(req.query.productId);
 
-function getAllProducts(req, res, next) {
-  dataBase.any('SELECT * FROM "PRODUCT"')
+  if(productId){
+    query += ' WHERE "PRODUCT_ID" = ' + productId;
+  }
+  
+  dataBase.any(query)
     .then(function (data) {
       res.status(200)
         .json({
@@ -50,86 +53,39 @@ function getAllProducts(req, res, next) {
       return next(err);
     });
 }
-
-function getProductById(req, res, next) {
-  var productId = parseInt(req.params.productId);
-
-  dataBase.one('SELECT * FROM "PRODUCT" WHERE "PRODUCT_ID" = $1', productId)
-    .then(function (data) {
-      res.status(200)
-        .json({
-          status: 'success',
-          data: data,
-          message: 'Product fetched successfully.'
-        });
-    })
-    .catch(function (err) {
-      return next(err);
-    });
-}
-
 //#endregion
 
 //#region PRODUCT_ITEM Table Queries
+function getProductItems(req, res, next) {
+  var productId = parseInt(req.query.productId);
+  var productTypeId = parseInt(req.query.productTypeId);
+  var cameraTypeId = parseInt(req.query.cameraTypeId);
+  var query = 'SELECT * FROM "PRODUCT_ITEM"';
 
-function getAllProductItems(req, res, next) {
-  dataBase.any('SELECT * FROM "PRODUCT_ITEM"')
+  if (productId && productTypeId && cameraTypeId) {
+    query += ' WHERE "PRODUCT_ID" = ' + productId + ' AND "PRODUCT_TYPE_ID = "' + productTypeId + ' AND "CAMERA_TYPE_ID" = ' + cameraTypeId;
+  }
+  else if (productTypeId && cameraTypeId) {
+    query += ' WHERE "PRODUCT_TYPE_ID" = ' + productTypeId + ' AND "CAMERA_TYPE_ID" = ' + cameraTypeId;
+  }
+  else if (productTypeId) {
+    query += ' WHERE "PRODUCT_TYPE_ID" = ' + productTypeId;
+  }
+  else if (cameraTypeId) {
+    query += ' WHERE "CAMERA_TYPE_ID" = ' + cameraTypeId;
+  }
+  else if(productId) {
+    query += ' WHERE "PRODUCT_ID" = ' + productId;
+  }
+
+  console.log(query);
+  dataBase.any(query)
     .then(function (data) {
       res.status(200)
         .json({
           status: 'success',
           data: data,
           message: 'Retrieved all product items.'
-        });
-    })
-    .catch(function (err) {
-      return next(err);
-    });
-}
-
-function getProductItemByPid(req, res, next) {
-  var productId = parseInt(req.params.productId);
-  dataBase.any('SELECT * FROM "PRODUCT_ITEM" WHERE "PRODUCT_ID" = $1', productId)
-    .then(function (data) {
-      res.status(200)
-        .json({
-          status: 'success',
-          data: data,
-          message: 'Product item fetched successfully.'
-        });
-    })
-    .catch(function (err) {
-      return next(err);
-    });
-}
-
-function getProductItemByType(req, res, next) {
-  var productTypeId = parseInt(req.params.productTypeId);
-  var query = 'SELECT * FROM "PRODUCT_ITEM" WHERE "PRODUCT_TYPE_ID" = ' + productTypeId;
-  dataBase.any(query)
-    .then(function (data) {
-      res.status(200)
-        .json({
-          status: 'success',
-          data: data,
-          message: 'Product items fetched successfully.'
-        });
-    })
-    .catch(function (err) {
-      return next(err);
-    });
-}
-
-function getProductItemByCameraTypeId(req, res, next) {
-  var cameraTypeId = parseInt(req.params.cameraTypeId);
-  var query = 'SELECT * FROM "PRODUCT_ITEM" WHERE "CAMERA_TYPE_ID" = ' + cameraTypeId;
-  dataBase.any(query)
-    .then(function (data) {
-      res.status(200)
-        .json({
-          status: 'success',
-          data: data,
-          message: 'Product items fetched successfully.'
         });
     })
     .catch(function (err) {
@@ -182,12 +138,10 @@ function removeProductItem(req, res, next) {
       return next(err);
     });
 }
-
 //#endregion
 
 //#region PRODUCT_TYPE Table queries
-
-function getAllProductTypes(req, res, next) {
+function getProductTypes(req, res, next) {
   dataBase.any('SELECT * FROM "PRODUCT_TYPE"')
     .then(function (data) {
       res.status(200)
@@ -201,12 +155,10 @@ function getAllProductTypes(req, res, next) {
       return next(err);
     });
 }
-
 //#endregion
 
 //#region CONTACT_US Table Queries
-
-function insertContactUs(req, res, next) {
+function createContactUs(req, res, next) {
   dataBase.none('INSERT INTO "CONTACT_US"("CONTACT_EMAIL", "TEXT", "PRODUCT_NAME")' +
     'VALUES(${contactEmail}, ${helpText}, ${productName})', req.body)
     .then(function () {
@@ -220,7 +172,23 @@ function insertContactUs(req, res, next) {
       return next(err);
     });
 }
+//#endregion
 
+//#region CAMERA_TYPE Table Queries
+function getCameraTypes(req, res, next) {
+  dataBase.any('SELECT * FROM "CAMERA_TYPE"')
+    .then(function (data) {
+      res.status(200)
+        .json({
+          status: 'success',
+          data: data,
+          message: 'Retrieved all products'
+        });
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+}
 //#endregion
 
 

@@ -69,8 +69,8 @@ class Contact extends Component {
                             Thank you for using Enterro India, Please complete the form below, so we can provide quick and efficient service. If this is an urgent matter please contact Customer Support:
                         </p>
                         <strong>
-                            India - +91 9888555288 <br />
-                            Monday - Saturday 9:00 AM - 5:00 PM
+                            India: +91 9888555288 <br />
+                            Monday: Saturday 9:00 AM - 5:00 PM
                         </strong>
                     </div>
                     <br />

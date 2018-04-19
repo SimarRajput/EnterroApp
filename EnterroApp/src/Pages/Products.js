@@ -8,11 +8,13 @@ class Products extends Component {
         this.callProductsApi = this.callProductsApi.bind(this);
         this.products = "";
         this.productTypes = "";
+        this.cameraTypes = "";
         this.state = {
             error: null,
             isLoaded: false,
             products: [],
-            productTypes: []
+            productTypes: [],
+            cameraTypes: []
         };
     }
 
@@ -25,7 +27,7 @@ class Products extends Component {
         axios.get('http://localhost:3000/api/enterro/productType')
             .then((res) => {
                 self.productTypes = res.data.data
-                self.callProductsApi(1);
+                self.callCameraTypeApi();
             })
             .catch((error) => {
                 self.state = {
@@ -34,15 +36,38 @@ class Products extends Component {
                 };
             });
     }
-    callProductsApi(productType) {
+
+    callCameraTypeApi() {
         var self = this;
-        axios.get('http://localhost:3000/api/enterro/productitem/' + productType)
+        axios.get('http://localhost:3000/api/enterro/cameraType')
+            .then((res) => {
+                self.cameraTypes = res.data.data
+                self.callProductsApi();
+            })
+            .catch((error) => {
+                self.state = {
+                    error: error,
+                    isLoaded: true
+                };
+            });
+    }
+
+    callProductsApi(productTypeId, cameraTypeId) {
+        var self = this;
+        var url = "http://localhost:3000/api/enterro/productItem";
+
+        if(productTypeId && cameraTypeId){
+            url += '?cameraTypeId=' + cameraTypeId + '&productTypeId=' + productTypeId;
+        }
+
+        axios.get('http://localhost:3000/api/enterro/productItem?cameraTypeId=' + cameraTypeId + '&productTypeId=' + productTypeId)
             .then((res) => {
                 self.product = res.data.data;
                 self.setState({
                     isLoaded: true,
                     products: res.data.data,
-                    productTypes: self.productTypes
+                    productTypes: self.productTypes,
+                    cameraTypes: self.cameraTypes
                 });
             })
             .catch((error) => {
@@ -54,7 +79,7 @@ class Products extends Component {
     }
 
     render() {
-        const { error, isLoaded, products, productTypes } = this.state;
+        const { error, isLoaded, products, productTypes, cameraTypes } = this.state;
         var self = this;
         if (!isLoaded) {
             return <div className="loading"></div>;
@@ -69,8 +94,10 @@ class Products extends Component {
                         <button type="button" className="dropdown-toggle list-group-item list-group-item-action" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {row.PRODUCT_TYPE}
                         </button>
-                        <div className="dropdown-menu">
-                            <button className="dropdown-item" value={row.PRODUCT_TYPE_ID} onClick={self.callProductsApi.bind(self, row.PRODUCT_TYPE_ID)} href="#sec">{row.PRODUCT_TYPE}</button>
+                        <div className="dropdown-menu">{
+                            cameraTypes.map(function (rowInner, j) {
+                                return <button className="dropdown-item" value={rowInner.CAMERA_TYPE_DESC} onClick={self.callProductsApi.bind(self, row.PRODUCT_TYPE_ID, rowInner.CAMERA_TYPE_ID)} href="#sec">{rowInner.CAMERA_TYPE_DESC}</button>
+                            })}
                         </div>
                     </div>
                 });
