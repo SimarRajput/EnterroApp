@@ -6,6 +6,7 @@ import Contact from './Pages/Contact.js';
 import Services from './Pages/Services.js';
 import Products from './Pages/Products.js';
 import ProductModule from './Pages/ProductModule.js';
+import ProductItemModule from './Pages/ProductItemModule.js';
 import Navigation from './Components/Navigation/Navigation';
 import Footer from './Components/Footer/Footer';
 
@@ -21,6 +22,7 @@ ReactDOM.render(
                 <Route path="/contact" component={Contact} />
                 <Route path="/services" component={Services} />
                 <Route path="/productModule" component={ProductModule} />
+                <Route path="/productItemModule" component={ProductItemModule} />
             <Footer />
         </div>
     </Router>, 

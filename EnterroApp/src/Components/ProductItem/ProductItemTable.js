@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import ProductForm from './ProductForm.js'
+import ProductItemForm from './ProductItemForm.js'
 import globals from '../../Globals.js';
 
 class ProductTable extends Component {
@@ -14,7 +14,7 @@ class ProductTable extends Component {
   }
 
   componentDidMount() {
-    axios.get(globals.apiUrl + '/product')
+    axios.get(globals.apiUrl + '/productItem')
       .then((res) => {
         this.setState({ 
           isLoaded: true,
@@ -46,9 +46,15 @@ class ProductTable extends Component {
       {
         const rows = products.map(function(row){
         return <tr>
+            <td key={row.PRODUCT_ITEM_ID}>{row.PRODUCT_ITEM_ID}</td>
             <td key={row.PRODUCT_ID}>{row.PRODUCT_ID}</td>
-            <td key={row.PRODUCT_NAME}>{row.PRODUCT_NAME}</td>
-            <td key={row.PRODUCT_DESC}>{row.PRODUCT_DESC}</td>
+            <td key={row.PRODUCT_ITEM_TITLE}>{row.PRODUCT_ITEM_TITLE}</td>
+            <td key={row.PRODUCT_ITEM_DESC}>{row.PRODUCT_ITEM_DESC}</td>
+            <td key={row.PRODUCT_TYPE_ID}>{row.PRODUCT_TYPE_ID}</td>
+            <td key={row.CAMERA_TYPE_ID}>{row.CAMERA_TYPE_ID}</td>
+            <td key={row.QUANTITY_ON_HAND}>{row.QUANTITY_ON_HAND}</td>
+            <td key={row.PRICE}>{row.PRICE}</td>
+            <td key={row.DISCOUNT}>{row.DISCOUNT}</td>
             <td key={row.DATE_ADDED}>{row.DATE_ADDED}</td>
             <td key={row.ADDED_BY}>{row.ADDED_BY}</td>
             <td key={row.UPDATE_TIMESTAMP}>{row.UPDATE_TIMESTAMP}</td>
@@ -58,16 +64,22 @@ class ProductTable extends Component {
         return (
           <div>
             <div className="heading">
-              <h4>Product Management Module</h4>
+              <h4>Product Item Management Module</h4>
             </div>
             <br/>
             <br/>
             <table className="table table-hover table-sm">
               <thead>
                 <tr className="siteColor">
+                  <th scope="col">Product Item ID</th>
                   <th scope="col">Product ID</th>
-                  <th scope="col">Product Name</th>
-                  <th scope="col">Product Description</th>
+                  <th scope="col">Title</th>
+                  <th scope="col">Description</th>
+                  <th scope="col">Product Type</th>
+                  <th scope="col">Camera Type</th>
+                  <th scope="col">Quantity On Hand</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Discount</th>
                   <th scope="col">Date Added</th>
                   <th scope="col">Added By</th>
                   <th scope="col">Update Timestamp</th>
@@ -78,7 +90,7 @@ class ProductTable extends Component {
                 {rows}
               </tbody>
             </table>
-            <ProductForm refresh={this.componentDidMount.bind(this)}/>
+            <ProductItemForm refresh={this.componentDidMount.bind(this)}/>
           </div>
         );
       }
