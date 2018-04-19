@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import ProductForm from '../ProductForm/ProductForm.js'
+import ProductForm from './ProductForm.js'
 import globals from '../../Globals.js';
 
 class ProductTable extends Component {
@@ -48,8 +48,9 @@ class ProductTable extends Component {
         return <tr>
             <td key={row.PRODUCT_ID}>{row.PRODUCT_ID}</td>
             <td key={row.PRODUCT_NAME}>{row.PRODUCT_NAME}</td>
-            <td key={row.PRODUCT_TYPE}>{row.PRODUCT_TYPE}</td>
+            <td key={row.PRODUCT_DESC}>{row.PRODUCT_DESC}</td>
             <td key={row.DATE_ADDED}>{row.DATE_ADDED}</td>
+            <td key={row.ADDED_BY}>{row.ADDED_BY}</td>
             <td key={row.UPDATE_TIMESTAMP}>{row.UPDATE_TIMESTAMP}</td>
             <td key={row.UPDATED_BY + "sd"}>{row.UPDATED_BY}</td>
           </tr>
@@ -66,8 +67,9 @@ class ProductTable extends Component {
                 <tr className="siteColor">
                   <th scope="col">Product ID</th>
                   <th scope="col">Product Name</th>
-                  <th scope="col">Product Type</th>
+                  <th scope="col">Product Description</th>
                   <th scope="col">Date Added</th>
+                  <th scope="col">Added By</th>
                   <th scope="col">Update Timestamp</th>
                   <th scope="col">Updated By</th>
                 </tr>

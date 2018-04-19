@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import ProductTable from '../Components/ProductTable/ProductTable';
+import ProductTable from '../Components/Product/ProductTable';
 
 class ProductModule extends Component {
     render() {

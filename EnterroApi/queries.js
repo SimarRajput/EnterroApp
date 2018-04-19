@@ -18,6 +18,7 @@ var dataBase = pgp({
 // Add Query Functions
 module.exports = {
   getProducts: getProducts,
+  createProduct: createProduct,
   getProductItems: getProductItems,
   createProductItem: createProductItem,
   updateProductItem: updateProductItem,
@@ -47,6 +48,20 @@ function getProducts(req, res, next) {
           status: 'success',
           data: data,
           message: 'Retrieved all products'
+        });
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+}
+function createProduct(req, res, next) {
+  dataBase.none('INSERT INTO "PRODUCT"("PRODUCT_NAME", "PRODUCT_DESC", "DATE_ADDED", "ADDED_BY", "UPDATED_BY", "UPDATE_TIMESTAMP")' +
+    'VALUES(${productName}, ${productDesc}, ${dateAdded}, ${addedBy}, ${updatedBy}, ${updateTimestamp})', req.body)
+    .then(function () {
+      res.status(200)
+        .json({
+          status: 'success',
+          message: 'Product added successfully.'
         });
     })
     .catch(function (err) {

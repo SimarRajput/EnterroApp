@@ -5,6 +5,7 @@ var REACT_APP_API_URL = "/api/enterro/";
 
 //#region PRODUCT Table Queries
 router.get(REACT_APP_API_URL + 'product', dataBase.getProducts);
+router.post(REACT_APP_API_URL + 'product', dataBase.createProduct);
 //#endregion
 
 //#region PRODUCT_ITEM Table Queries
