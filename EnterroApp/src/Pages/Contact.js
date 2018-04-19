@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import globals from '../Globals.js'
 
 class Contact extends Component {
     constructor(props) {
@@ -33,7 +34,7 @@ class Contact extends Component {
             helpText: this.helpText.value
         };
 
-        axios.post('http://localhost:3000/api/enterro/ContactUs', contactUs)
+        axios.post(globals.apiUrl + '/ContactUs', contactUs)
             .then((res) => {
                 this.fillInfoDiv(res.data.message);
                 this.setState({

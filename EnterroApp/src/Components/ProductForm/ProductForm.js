@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import globals from '../../Globals.js';
 
 class ProductForm extends Component {
     constructor(props) {
@@ -18,7 +19,7 @@ class ProductForm extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:3000/api/enterro/productType')
+        axios.get(globals.apiUrl + '/productType')
             .then((res) => {
                 this.setState({
                     isLoaded: true,
@@ -47,7 +48,7 @@ class ProductForm extends Component {
             productDateAdded: new Date()
         };
 
-        axios.post('http://localhost:3000/api/enterro/product', product)
+        axios.post(globals.apiUrl + '/product', product)
             .then((res) => {
                 this.fillInfoDiv(res.data.message);
                 this.setState({

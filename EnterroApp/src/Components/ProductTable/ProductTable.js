@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import ProductForm from '../ProductForm/ProductForm.js'
+import globals from '../../Globals.js';
 
 class ProductTable extends Component {
   constructor(props) {
@@ -13,7 +14,7 @@ class ProductTable extends Component {
   }
 
   componentDidMount() {
-    axios.get('http://localhost:3000/api/enterro/product')
+    axios.get(globals.apiUrl + '/product')
       .then((res) => {
         this.setState({ 
           isLoaded: true,

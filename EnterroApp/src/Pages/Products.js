@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import globals from '../Globals.js';
 
 class Products extends Component {
     constructor(props) {
@@ -24,7 +25,7 @@ class Products extends Component {
 
     callProductTypeApi() {
         var self = this;
-        axios.get('http://localhost:3000/api/enterro/productType')
+        axios.get(globals.apiUrl + '/productType')
             .then((res) => {
                 self.productTypes = res.data.data
                 self.callCameraTypeApi();
@@ -39,7 +40,7 @@ class Products extends Component {
 
     callCameraTypeApi() {
         var self = this;
-        axios.get('http://localhost:3000/api/enterro/cameraType')
+        axios.get(globals.apiUrl + '/cameraType')
             .then((res) => {
                 self.cameraTypes = res.data.data
                 self.callProductsApi();
@@ -54,13 +55,13 @@ class Products extends Component {
 
     callProductsApi(productTypeId, cameraTypeId) {
         var self = this;
-        var url = "http://localhost:3000/api/enterro/productItem";
+        var url = globals.apiUrl + "/productItem";
 
         if(productTypeId && cameraTypeId){
             url += '?cameraTypeId=' + cameraTypeId + '&productTypeId=' + productTypeId;
         }
 
-        axios.get('http://localhost:3000/api/enterro/productItem?cameraTypeId=' + cameraTypeId + '&productTypeId=' + productTypeId)
+        axios.get(url)
             .then((res) => {
                 self.product = res.data.data;
                 self.setState({
