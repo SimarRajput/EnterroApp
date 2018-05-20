@@ -10,7 +10,7 @@ var pgp = require('pg-promise')(options);
 var dataBase = pgp({
   host: 'localhost',
   port: 5432,
-  database: 'enterro',
+  database: 'enterrodb',
   user: 'postgres',
   password: 'Sa@123456'
 });
@@ -34,6 +34,7 @@ function quoteStr(string) {
 
 //#region PRODUCT Table Queries
 function getProducts(req, res, next) {
+  console.log("Simar");
   var query = 'SELECT * FROM "PRODUCT"';
   var productId = parseInt(req.query.productId);
 
@@ -51,6 +52,7 @@ function getProducts(req, res, next) {
         });
     })
     .catch(function (err) {
+      console.log(err);
       return next(err);
     });
 }
